@@ -13,7 +13,7 @@ yes | mkfs.fat -F32 "${1}"1
 mkdir -p /mnt/boot/
 mount "${1}"1 /mnt/boot
 reflector --latest 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel broadcom-wl docker git intel-ucode iwd linux-firmware man-db man-pages mpv mutt newsboat pulseaudio qutebrowser slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
+pacstrap /mnt alsa-utils base base-devel broadcom-wl docker git intel-ucode iwd linux-firmware man-db man-pages mpv mutt newsboat qutebrowser slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt << EOF
@@ -63,6 +63,9 @@ echo "set font 'monospace 55'" > /etc/zathurarc
 git clone https://github.com/pbizopoulos/fswm && cd fswm && make install && cd .. && rm -rf fswm/
 
 su "$user"
+
+amixer -c 1 sset Master unmute
+amixer -c 1 set Master 100%
 
 cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-20190306-ed68fe7.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
 
@@ -118,10 +121,6 @@ Mutt
 
 Newsboat
 1. Add RSS urls to /home/"$user"/.newsboat/urls
-
-Pulseaudio
-1. pactl set-sink-volume 0 100%
-2. pactl set-sink-mute 0 0
 END
 
 EOF
