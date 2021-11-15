@@ -13,7 +13,7 @@ yes | mkfs.fat -F32 "${1}"1
 mkdir -p /mnt/boot/
 mount "${1}"1 /mnt/boot
 reflector --latest 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-pacstrap /mnt alsa-utils base base-devel broadcom-wl docker git intel-ucode iwd linux-firmware man-db man-pages mpv mutt newsboat qutebrowser slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
+pacstrap /mnt base base-devel broadcom-wl docker git intel-ucode iwd linux-firmware man-db man-pages mpv mutt newsboat pulseaudio qutebrowser slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt << EOF
@@ -118,6 +118,10 @@ Mutt
 
 Newsboat
 1. Add RSS urls to /home/"$user"/.newsboat/urls
+
+Pulseaudio
+1. pactl set-sink-volume 0 100%
+2. pactl set-sink-mute 0 0
 END
 
 EOF
