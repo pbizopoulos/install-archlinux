@@ -15,7 +15,7 @@ spawn qemu-system-x86_64 -m 4G -machine accel=kvm:tcg -net nic -net user -drive 
 expect "archiso login: "
 send "root\n"
 expect "# "
-send "curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | sed 's/wlan0/ens3/g' | bash -s /dev/vda\n"
+send "curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | sed 's/wlan0/ens3/g' | sed 's/amixer -c 1/amixer/g' | bash -s /dev/vda\n"
 expect "Finished."
 send "shutdown now\n"
 expect "# "

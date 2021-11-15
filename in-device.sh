@@ -59,13 +59,13 @@ systemctl enable iwd
 systemctl enable systemd-networkd
 systemctl enable systemd-resolved
 
+amixer -c 1 sset Master unmute
+amixer -c 1 set Master 100%
+
 echo "set font 'monospace 55'" > /etc/zathurarc
 git clone https://github.com/pbizopoulos/fswm && cd fswm && make install && cd .. && rm -rf fswm/
 
 su "$user"
-
-amixer -c 1 sset Master unmute
-amixer -c 1 set Master 100%
 
 cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-20190306-ed68fe7.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
 
