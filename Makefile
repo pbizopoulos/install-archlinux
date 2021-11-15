@@ -12,7 +12,7 @@ workdir=/app
 
 $(tmpdir)/$(img): Dockerfile Makefile in-device.sh in-qemu.sh
 	mkdir -p $(tmpdir)/
-	docker build --pull --tag install-archlinux .
+	docker build --tag install-archlinux .
 	docker container run \
 		$(debug_args) \
 		$(kvm_args) \
