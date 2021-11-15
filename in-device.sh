@@ -59,9 +59,6 @@ systemctl enable iwd
 systemctl enable systemd-networkd
 systemctl enable systemd-resolved
 
-amixer -c 1 sset Master unmute
-amixer -c 1 set Master 100%
-
 echo "set font 'monospace 55'" > /etc/zathurarc
 git clone https://github.com/pbizopoulos/fswm && cd fswm && make install && cd .. && rm -rf fswm/
 
