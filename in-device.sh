@@ -13,7 +13,7 @@ yes | mkfs.fat -F32 "${1}"1
 mkdir -p /mnt/boot/
 mount "${1}"1 /mnt/boot
 reflector --latest 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel broadcom-wl docker git intel-ucode iwd linux-firmware man-db man-pages mpv mutt newsboat pulseaudio qutebrowser slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
+pacstrap /mnt base base-devel broadcom-wl chromium docker git intel-ucode iwd linux-firmware man-db man-pages mpv mutt newsboat pulseaudio slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt << EOF
@@ -79,7 +79,7 @@ name = Paschalis Bizopoulos
 rebase = false
 END
 
-echo "export QT_SCALE_FACTOR=4" >> /home/"$user"/.bashrc
+echo "export GDK_SCALE=3" >> /home/"$user"/.bashrc
 
 mkdir -p /home/"$user"/.mail/
 touch /home/"$user"/.mail/spoolfile
@@ -99,14 +99,18 @@ mkdir -p /home/"$user"/.newsboat/
 touch /home/"$user"/.newsboat/urls
 
 cat << END > /home/"$user"/.newsboat/config
-browser "qutebrowser %u"
+browser "chromium %u"
 delete-read-articles-on-quit yes
-macro m set browser "mpv %u"; open-in-browser ; set browser "qutebrowser %u"
+macro m set browser "mpv %u"; open-in-browser ; set browser "chromium %u"
 END
 
 echo "filetype plugin indent on" > /home/"$user"/.vimrc
 
 cat << END > /home/"$user"/post.txt
+Chromium
+1. Install Vimium
+2. Install uBlock Origin
+
 GitHub
 1. ssh-keygen -t ed25519 -C "pbizopoulos@protonmail.com"
 2. eval "$(ssh-agent -s)"
