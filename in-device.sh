@@ -59,7 +59,6 @@ systemctl enable iwd
 systemctl enable systemd-networkd
 systemctl enable systemd-resolved
 
-echo "set font 'monospace 55'" > /etc/zathurarc
 git clone https://github.com/pbizopoulos/fswm && cd fswm && make install && cd .. && rm -rf fswm/
 
 su "$user"
