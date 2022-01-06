@@ -78,7 +78,7 @@ name = Paschalis Bizopoulos
 rebase = false
 END
 
-echo "export GDK_SCALE=3" >> /home/"$user"/.bashrc
+echo "export GDK_SCALE=4" >> /home/"$user"/.bashrc
 
 mkdir -p /home/"$user"/.mail/
 touch /home/"$user"/.mail/spoolfile
