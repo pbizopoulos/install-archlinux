@@ -13,7 +13,7 @@ yes | mkfs.fat -F32 "${1}"1
 mkdir -p /mnt/boot/
 mount "${1}"1 /mnt/boot
 reflector --latest 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel broadcom-wl chromium docker git intel-ucode iwd linux-firmware man-db man-pages mpv mutt newsboat pulseaudio slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
+pacstrap /mnt base base-devel broadcom-wl chromium docker git intel-ucode iwd linux-firmware man-db man-pages mpv pulseaudio slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt << EOF
@@ -74,35 +74,9 @@ cat << END > /home/"$user"/.gitconfig
 [user]
 email = pbizopoulos@protonmail.com
 name = Paschalis Bizopoulos
-[pull]
-rebase = false
 END
 
 echo "export GDK_SCALE=4" >> /home/"$user"/.bashrc
-
-mkdir -p /home/"$user"/.mail/
-touch /home/"$user"/.mail/spoolfile
-
-cat << END > /home/"$user"/.muttrc
-set editor=/usr/bin/vim
-set folder="~/.mail"
-set from="pbizopoulos@iti.gr"
-set pop_host="pops://pbizopoulos@mail.iti.gr:995"
-set realname="Paschalis Bizopoulos"
-set record="~/.mail/sent"
-set smtp_url="smtps://pbizopoulos@mail.iti.gr:465"
-set spoolfile="~/.mail/spoolfile"
-END
-
-mkdir -p /home/"$user"/.newsboat/
-touch /home/"$user"/.newsboat/urls
-
-cat << END > /home/"$user"/.newsboat/config
-browser "chromium %u"
-delete-read-articles-on-quit yes
-macro m set browser "mpv %u"; open-in-browser ; set browser "chromium %u"
-END
-
 echo "filetype plugin indent on" > /home/"$user"/.vimrc
 
 cat << END > /home/"$user"/post.txt
@@ -115,12 +89,6 @@ GitHub
 2. eval "$(ssh-agent -s)"
 3. ssh-add /home/"$user"/.ssh/id_ed25519
 4. Copy contents of /home/"$user"/.ssh/id_ed25519.pub to GitHub SSH settings.
-
-Mutt
-1. Add spoolfile to /home/"$user"/.mail/spoolfile
-
-Newsboat
-1. Add RSS urls to /home/"$user"/.newsboat/urls
 
 Pulseaudio
 1. pactl set-sink-volume 0 100%
