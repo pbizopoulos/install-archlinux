@@ -14,7 +14,7 @@ mkdir -p /mnt/boot/
 mount "${1}"1 /mnt/boot
 reflector --latest 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel broadcom-wl chromium docker git intel-ucode iwd linux-firmware man-db man-pages mpv pulseaudio slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
 
 arch-chroot /mnt << EOF
 ln -sf /usr/share/zoneinfo/Europe/Athens /etc/localtime
@@ -29,11 +29,7 @@ useradd -m -G docker,wheel "$user"
 echo "$user:$user_password" | chpasswd
 bootctl install
 mkdir -p /boot/loader/
-
-cat << END > /boot/loader/loader.conf
-default arch.conf
-timeout 0
-END
+echo 'default arch.conf' > /boot/loader/loader.conf
 
 mkdir -p /boot/loader/entries/
 
