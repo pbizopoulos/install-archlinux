@@ -13,7 +13,7 @@ yes | mkfs.fat -F32 "${1}"1
 mkdir -p /mnt/boot/
 mount "${1}"1 /mnt/boot
 reflector --latest 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel broadcom-wl chromium docker git intel-ucode iwd linux-firmware man-db man-pages mpv pulseaudio slock vim xorg-server xorg-xinit xorg-xinput yt-dlp zathura-pdf-mupdf
+pacstrap /mnt base base-devel broadcom-wl chromium docker git intel-ucode iwd linux-firmware man-db man-pages openssh pulseaudio slock vim xorg-server xorg-xinit xorg-xinput
 genfstab -U /mnt > /mnt/etc/fstab
 
 arch-chroot /mnt << EOF

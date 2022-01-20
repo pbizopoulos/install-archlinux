@@ -1,9 +1,10 @@
 .POSIX:
 
-is_shell_interactive:=$(shell [ -t 0 ] && echo 1)
-ifdef is_shell_interactive
-	debug_args=--interactive --tty
-endif
+.PHONY: clean gui
+
+debug_args_0=
+debug_args_1=--interactive --tty
+debug_args=$(debug_args_$(shell [ -t 0 ] && echo 1))
 
 img=archlinux.img
 kvm_args=--device /dev/kvm
