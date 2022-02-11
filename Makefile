@@ -18,8 +18,8 @@ kvm_args=--device /dev/kvm
 
 $(tmpdir)/$(img): Dockerfile Makefile in-device.sh in-qemu.sh
 	mkdir -p $(tmpdir)/
-	podman build --tag install-archlinux .
-	podman container run \
+	$(container_engine) build --tag install-archlinux .
+	$(container_engine) container run \
 		$(debug_args) \
 		$(kvm_args) \
 		$(user_arg) \
@@ -32,7 +32,7 @@ $(tmpdir)/$(img): Dockerfile Makefile in-device.sh in-qemu.sh
 
 gui: $(tmpdir)/$(img)
 	xhost +local:$(USER)
-	podman container run \
+	$(container_engine) container run \
 		$(debug_args) \
 		$(kvm_args) \
 		$(user_arg) \
