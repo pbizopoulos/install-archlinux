@@ -1,4 +1,4 @@
-Install archlinux
+Install archlinux ...
 
 
 ... in device (PC) using external device (USB stick).
@@ -8,12 +8,12 @@ Requirements:
 - curl https://curl.se/download.html
 
 Preparation:
-1. plug USB stick to host
-2. ISO="$(curl -fs "https://mirror.pkgbuild.com/iso/latest/" | grep -Eo 'archlinux-[0-9]{4}\.[0-9]{2}\.[0-9]{2}-x86_64.iso' | head -n 1)" && curl -o "/tmp/${ISO}" "https://mirror.pkgbuild.com/iso/latest/${ISO}"
-3. dd bs=4M if="/tmp/${ISO}" of=/dev/sdx status=progress oflag=sync
-4. boot target from USB stick
-5. curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | bash -s /dev/sda && reboot
-6. execute commands in post.txt
+# plug USB stick to host
+ISO="$(curl -fs "https://mirror.pkgbuild.com/iso/latest/" | grep -Eo 'archlinux-[0-9]{4}\.[0-9]{2}\.[0-9]{2}-x86_64.iso' | head -n 1)" && curl -o "/tmp/${ISO}" "https://mirror.pkgbuild.com/iso/latest/${ISO}"
+dd bs=4M if="/tmp/${ISO}" of=/dev/sdx status=progress oflag=sync
+# boot target from USB stick
+curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | bash -s /dev/sda && reboot
+# execute commands in post.txt
 
 
 ... in external device (USB stick) using device (PC).
@@ -22,25 +22,26 @@ Requirements:
 - archlinux https://archlinux.org/
 
 Preparation:
-1. plug USB stick to host
-2. sudo pacman -S arch-install-scripts dosfstools reflector
-3. curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | sudo bash -s /dev/sdb
-4. boot target from USB stick
-5. execute commands in post.txt
+# plug USB stick to host
+sudo pacman -S arch-install-scripts dosfstools reflector
+curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | sudo bash -s /dev/sdb
+# boot target from USB stick
+# execute commands in post.txt
 
 
 ... in qemu using device (PC).
 
 Requirements:
 - POSIX-oriented operating system https://en.wikipedia.org/wiki/POSIX#POSIX-oriented_operating_systems
-- GNU Make https://www.gnu.org/software/make/
-- Docker https://docs.docker.com/get-docker/
+- Git (Any version) https://git-scm.com/downloads
+- GNU Make (>= 3.79) https://www.gnu.org/software/make/
+- Docker (Any version) https://docs.docker.com/get-docker/
 - Xhost https://www.x.org/releases/X11R7.6/doc/man/man1/xhost.1.xhtml
 
 Preparation:
-1. git clone https://github.com/pbizopoulos/install-archlinux
-2. cd install-archlinux/
-3. sudo systemctl start docker
+git clone https://github.com/pbizopoulos/install-archlinux
+cd install-archlinux/
+sudo systemctl start docker
 
 Usage:
 make		# Build image.

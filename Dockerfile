@@ -1,2 +1,2 @@
-FROM archlinux:base-20220123.0.45312
+FROM archlinux:base-20220206.0.46909
 RUN pacman -Syu --needed --noconfirm edk2-ovmf expect libisoburn qemu
