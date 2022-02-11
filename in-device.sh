@@ -59,7 +59,7 @@ cd /tmp/ && git clone https://github.com/pbizopoulos/fswm && cd fswm && make ins
 
 su "$user"
 
-cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-20190306-ed68fe7.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
+cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-0.8.5.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
 
 cat << END > /home/"$user"/.xinitrc
 setxkbmap -layout us,gr -option grp:win_space_toggle
