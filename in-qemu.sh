@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -o errexit
 
 ISO="$(curl -fs "https://mirror.pkgbuild.com/iso/latest/" | grep -Eo 'archlinux-[0-9]{4}\.[0-9]{2}\.[0-9]{2}-x86_64.iso' | head -n 1)"
 if [ ! -f "${TMPDIR}/${ISO}" ]; then

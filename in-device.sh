@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -o errexit
 
 root_password="password"
 user="pbizopoulos"
