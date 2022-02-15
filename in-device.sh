@@ -49,7 +49,7 @@ Name=wlan0
 DHCP=ipv4
 END
 
-echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 
 systemctl enable iwd
 systemctl enable systemd-networkd
