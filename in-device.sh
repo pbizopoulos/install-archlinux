@@ -51,11 +51,11 @@ END
 
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 systemctl enable iwd systemd-networkd systemd-resolved
-cd /tmp/ && git clone https://github.com/pbizopoulos/fswm && cd fswm && make install
+cd /tmp/ && git clone https://github.com/pbizopoulos/fswm && cd fswm/ && make install
 
 su "$user"
 
-cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-0.8.5.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
+cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st/ && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-0.8.5.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
 sed -i '$s/NOPASSWD: //' /etc/sudoers
 
 cat << END > /home/"$user"/.xinitrc
