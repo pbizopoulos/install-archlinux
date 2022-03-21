@@ -46,4 +46,4 @@ sudo systemctl start docker
 Usage:
 make		# Build image.
 make gui	# Run image in QEMU.
-make clean 	# Remove tmp/ directory.
+make clean 	# Remove artifacts/ directory.
