@@ -12,14 +12,14 @@ fallocate -l 8G "${ARTIFACTSDIR}/${IMG}"
 expect <<EOF
 set timeout -1
 spawn qemu-system-x86_64 -m 4G -machine accel=kvm:tcg -net nic -net user -drive file="${ARTIFACTSDIR}/${IMG}",format=raw,if=virtio -cdrom "${ARTIFACTSDIR}/${ISO}" -kernel "${ARTIFACTSDIR}/vmlinuz-linux" -initrd "${ARTIFACTSDIR}/initramfs-linux.img" -append "archisolabel=${ISO_VOLUME_ID} console=ttyS0" -nographic
-expect 'archiso login: '
-send 'root\n'
-expect '# '
-send 'until systemctl is-active pacman-init; do sleep 1; done\n'
-expect '# '
-send 'curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | sed 's/wlan0/ens3/g' | bash -s /dev/vda\n'
-expect 'Finished.'
-send 'shutdown now\n'
-expect '# '
-send 'shutdown now\n'
+expect "archiso login: "
+send "root\n"
+expect "# "
+send "until systemctl is-active pacman-init; do sleep 1; done\n"
+expect "# "
+send "curl -L github.com/pbizopoulos/install-archlinux/raw/master/in-device.sh | sed 's/wlan0/ens3/g' | bash -s /dev/vda\n"
+expect "Finished."
+send "shutdown now\n"
+expect "# "
+send "shutdown now\n"
 EOF
