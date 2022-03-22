@@ -1,17 +1,15 @@
 .POSIX:
 
 container_engine=docker
-# For podman first execute `echo 'unqualified-search-registries=["docker.io"]' > /etc/containers/registries.conf.d/docker.conf`
+# For podman first execute `printf 'unqualified-search-registries=["docker.io"]\n' > /etc/containers/registries.conf.d/docker.conf`
 artifactsdir=artifacts
 workdir=/app
 
+user_arg=$(shell [ $(container_engine) = 'docker' ] && printf '%s' '--user `id -u`:`id -g`')
+
 .PHONY: clean gui
 
-debug_args=$(shell [ -t 0 ] && echo --interactive --tty)
-
-user_arg_podman=
-user_arg_docker=--user `id -u`:`id -g`
-user_arg=$(user_arg_$(container_engine))
+debug_args=$(shell [ -t 0 ] && printf '%s' '--interactive --tty')
 
 img=archlinux.img
 kvm_args=--device /dev/kvm

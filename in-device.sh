@@ -1,12 +1,12 @@
 #!/bin/bash
-set -euo pipefail
+set -eu
 
-root_password="password"
-user="pbizopoulos"
-user_password="password"
+root_password='password'
+user='pbizopoulos'
+user_password='password'
 timedatectl set-ntp true
 wipefs -a -f "${1}"
-echo -e "g\nn\n\n\n+512M\nt\n1\nn\n\n\n\nw\n" | fdisk "${1}"
+printf 'g\nn\n\n\n+512M\nt\n1\nn\n\n\n\nw' | fdisk "${1}"
 yes | mkfs.ext4 "${1}"2
 mount "${1}"2 /mnt
 yes | mkfs.fat -F32 "${1}"1
@@ -14,22 +14,22 @@ mkdir -p /mnt/boot/
 mount "${1}"1 /mnt/boot
 reflector --latest 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel broadcom-wl chromium docker git intel-ucode iwd linux-firmware man-db man-pages openssh pulseaudio slock vim xorg-server xorg-xinit xorg-xinput
-genfstab -U /mnt > /mnt/etc/fstab
+genfstab -U /mnt >/mnt/etc/fstab
 
-arch-chroot /mnt << EOF
+arch-chroot /mnt <<EOF
 ln -sf /usr/share/zoneinfo/Europe/Athens /etc/localtime
 hwclock --systohc
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-echo "el_GR.UTF-8 UTF-8" >> /etc/locale.gen
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+printf 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
+printf 'el_GR.UTF-8 UTF-8' >> /etc/locale.gen
+printf 'LANG=en_US.UTF-8' >> /etc/locale.conf
 locale-gen
-echo "archlinux" > /etc/hostname
-echo root:${root_password} | chpasswd
+printf 'archlinux' > /etc/hostname
+printf root:${root_password} | chpasswd
 useradd -m -G docker,wheel ${user}
-echo ${user}:${user_password} | chpasswd
+printf ${user}:${user_password} | chpasswd
 bootctl install
 mkdir -p /boot/loader/
-echo 'default arch.conf' > /boot/loader/loader.conf
+printf 'default arch.conf' > /boot/loader/loader.conf
 
 mkdir -p /boot/loader/entries/
 
@@ -49,7 +49,7 @@ Name=wlan0
 DHCP=ipv4
 END
 
-echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+printf '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 systemctl enable iwd systemd-networkd systemd-resolved
 cd /tmp/ && git clone https://github.com/pbizopoulos/fswm && cd fswm/ && make install
 
@@ -60,7 +60,7 @@ sed -i '$s/NOPASSWD: //' /etc/sudoers
 
 cat << END > /home/${user}/.xinitrc
 setxkbmap -layout us,gr -option grp:win_space_toggle
-fswm st -f "Source Code Pro:pixelsize=60:style=bold"
+fswm st -f 'Source Code Pro:pixelsize=60:style=bold'
 END
 
 cat << END > /home/${user}/.gitconfig
@@ -69,8 +69,8 @@ email = pbizopoulos@protonmail.com
 name = Paschalis Bizopoulos
 END
 
-echo "export GDK_SCALE=4" >> /home/${user}/.bashrc
-echo "filetype plugin indent on" > /home/${user}/.vimrc
+printf 'export GDK_SCALE=4' >> /home/${user}/.bashrc
+printf 'filetype plugin indent on' > /home/${user}/.vimrc
 
 cat << END > /home/${user}/post.txt
 Chromium
@@ -78,8 +78,8 @@ Chromium
 2. Install uBlock Origin
 
 GitHub
-1. ssh-keygen -t ed25519 -C "pbizopoulos@protonmail.com"
-2. eval "$(ssh-agent -s)"
+1. ssh-keygen -t ed25519 -C 'pbizopoulos@protonmail.com'
+2. eval '$(ssh-agent -s)'
 3. ssh-add /home/${user}/.ssh/id_ed25519
 4. Copy contents of /home/${user}/.ssh/id_ed25519.pub to GitHub SSH settings.
 
@@ -90,5 +90,5 @@ END
 
 EOF
 
-echo "Finished."
+printf 'Finished.'
 umount -R /mnt
