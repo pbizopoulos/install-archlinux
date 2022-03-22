@@ -1,5 +1,5 @@
 #!/bin/bash
-set -o errexit
+set -euo pipefail
 
 root_password="password"
 user="pbizopoulos"
@@ -24,9 +24,9 @@ echo "el_GR.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 locale-gen
 echo "archlinux" > /etc/hostname
-echo "root:$root_password" | chpasswd
-useradd -m -G docker,wheel "$user"
-echo "$user:$user_password" | chpasswd
+echo root:${root_password} | chpasswd
+useradd -m -G docker,wheel ${user}
+echo ${user}:${user_password} | chpasswd
 bootctl install
 mkdir -p /boot/loader/
 echo 'default arch.conf' > /boot/loader/loader.conf
@@ -53,26 +53,26 @@ echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 systemctl enable iwd systemd-networkd systemd-resolved
 cd /tmp/ && git clone https://github.com/pbizopoulos/fswm && cd fswm/ && make install
 
-su "$user"
+su ${user}
 
 cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st/ && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-0.8.5.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
 sed -i '$s/NOPASSWD: //' /etc/sudoers
 
-cat << END > /home/"$user"/.xinitrc
+cat << END > /home/${user}/.xinitrc
 setxkbmap -layout us,gr -option grp:win_space_toggle
 fswm st -f "Source Code Pro:pixelsize=60:style=bold"
 END
 
-cat << END > /home/"$user"/.gitconfig
+cat << END > /home/${user}/.gitconfig
 [user]
 email = pbizopoulos@protonmail.com
 name = Paschalis Bizopoulos
 END
 
-echo "export GDK_SCALE=4" >> /home/"$user"/.bashrc
-echo "filetype plugin indent on" > /home/"$user"/.vimrc
+echo "export GDK_SCALE=4" >> /home/${user}/.bashrc
+echo "filetype plugin indent on" > /home/${user}/.vimrc
 
-cat << END > /home/"$user"/post.txt
+cat << END > /home/${user}/post.txt
 Chromium
 1. Install Vimium
 2. Install uBlock Origin
@@ -80,8 +80,8 @@ Chromium
 GitHub
 1. ssh-keygen -t ed25519 -C "pbizopoulos@protonmail.com"
 2. eval "$(ssh-agent -s)"
-3. ssh-add /home/"$user"/.ssh/id_ed25519
-4. Copy contents of /home/"$user"/.ssh/id_ed25519.pub to GitHub SSH settings.
+3. ssh-add /home/${user}/.ssh/id_ed25519
+4. Copy contents of /home/${user}/.ssh/id_ed25519.pub to GitHub SSH settings.
 
 Pulseaudio
 1. pactl set-sink-volume 0 100%
