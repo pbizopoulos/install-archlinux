@@ -56,8 +56,7 @@ cd /tmp/ && git clone https://github.com/pbizopoulos/fswm && cd fswm/ && make in
 su "$user"
 
 cd /tmp/ && git clone https://aur.archlinux.org/st.git && cd st/ && makepkg && curl -L https://st.suckless.org/patches/solarized/st-solarized-light-0.8.5.diff | git apply && cp config.def.h config.h && makepkg --noconfirm -sif
-head -n -1 /etc/sudoers > /etc/sudoers
-echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+sed -i '$s/NOPASSWD: //' /etc/sudoers
 
 cat << END > /home/"$user"/.xinitrc
 setxkbmap -layout us,gr -option grp:win_space_toggle
