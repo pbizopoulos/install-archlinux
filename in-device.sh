@@ -67,6 +67,8 @@ cat << END > /home/"$user"/.gitconfig
 [user]
 email = pbizopoulos@protonmail.com
 name = Paschalis Bizopoulos
+[init]
+defaultBranch = main
 END
 
 echo "export GDK_SCALE=4" >> /home/"$user"/.bashrc
