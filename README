@@ -4,8 +4,8 @@ Install archlinux ...
 ... in device (PC) using external device (USB stick).
 
 Requirements:
-- POSIX-oriented operating system https://en.wikipedia.org/wiki/POSIX#POSIX-oriented_operating_systems
-- curl https://curl.se/download.html
+- POSIX-oriented operating system
+- curl
 
 Preparation:
 # plug USB stick to host
@@ -32,11 +32,11 @@ curl -L github.com/pbizopoulos/install-archlinux/raw/main/in-device.sh | sudo ba
 ... in qemu using device (PC).
 
 Requirements:
-- POSIX-oriented operating system https://en.wikipedia.org/wiki/POSIX#POSIX-oriented_operating_systems
-- Git (Any version) https://git-scm.com/downloads
-- GNU Make (>= 3.79) https://www.gnu.org/software/make/
-- Docker (Any version) https://docs.docker.com/get-docker/
-- Xhost https://www.x.org/releases/X11R7.6/doc/man/man1/xhost.1.xhtml
+- POSIX-oriented operating system
+- Git (Any version)
+- GNU Make (>= 3.79)
+- Docker (Any version)
+- Xhost
 
 Preparation:
 git clone https://github.com/pbizopoulos/install-archlinux
