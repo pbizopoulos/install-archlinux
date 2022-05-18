@@ -12,7 +12,7 @@ img=archlinux.img
 kvm_args=--device /dev/kvm
 user_arg=$(shell [ $(container_engine) = 'docker' ] && printf '%s' '--user `id -u`:`id -g`')
 
-$(artifactsdir)/$(img): Dockerfile Makefile in-device.sh in-qemu.sh ##	Build image.
+$(artifactsdir)/$(img): Dockerfile Makefile in-device.sh in-qemu.sh ## Build image.
 	mkdir -p $(artifactsdir)/
 	$(container_engine) build --tag install-archlinux .
 	$(container_engine) container run \
@@ -26,7 +26,7 @@ $(artifactsdir)/$(img): Dockerfile Makefile in-device.sh in-qemu.sh ##	Build ima
 		--workdir $(workdir) \
 		install-archlinux ./in-qemu.sh
 
-gui: $(artifactsdir)/$(img) ##				Run image in QEMU.
+gui: $(artifactsdir)/$(img) ## Run image in QEMU.
 	xhost +local:$(USER)
 	$(container_engine) container run \
 		$(debug_args) \
@@ -40,8 +40,8 @@ gui: $(artifactsdir)/$(img) ##				Run image in QEMU.
 		install-archlinux qemu-system-x86_64 -m 4G -machine accel=kvm:tcg -net nic -net user -drive file=$(artifactsdir)/$(img),format=raw,if=virtio -drive if=pflash,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd -audiodev pa,id=snd0 -device ich9-intel-hda -device hda-output,audiodev=snd0
 	xhost -local:$(USER)
 
-clean: ## 			Remove artifacts/ directory.
+clean: ## Remove $(artifactsdir) directory.
 	rm -rf $(artifactsdir)/
 
-help: ## 				Show all commands.
-	@grep '##' $(MAKEFILE_LIST) | sed 's/\(\:.*\#\#\)/\:\ /' | sed 's/\$$(artifactsdir)/$(artifactsdir)/' | sed 's/\$$(img)/$(img)/' | grep -v grep
+help: ## Show all commands.
+	@sed 's/\$$(artifactsdir)/$(artifactsdir)/g; s/\$$(codefile)/$(codefile)/g' $(MAKEFILE_LIST) | grep '##' | grep -v grep | awk 'BEGIN {FS = ":.* ## "}; {printf "%-30s# %s\n", $$1, $$2}'
