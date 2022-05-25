@@ -4,10 +4,10 @@
 
 artifactsdir=artifacts
 container_engine=docker # For podman first execute $(printf 'unqualified-search-registries=["docker.io"]\n' > /etc/containers/registries.conf.d/docker.conf)
-debug_args=$$([ -t 0 ] && printf '%s' '--interactive --tty')
+debug_args=$$(test -t 0 && printf '%s' '--interactive --tty')
 img=archlinux.img
 kvm_args=--device /dev/kvm
-user_arg=$$([ $(container_engine) = 'docker' ] && printf '%s' "--user $$(id -u):$$(id -g)")
+user_arg=$$(test $(container_engine) = 'docker' && printf '%s' "--user $$(id -u):$$(id -g)")
 workdir=/work
 
 $(artifactsdir)/$(img): Dockerfile Makefile in-device.sh in-qemu.sh ## Build image.
