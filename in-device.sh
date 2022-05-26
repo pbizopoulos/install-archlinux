@@ -60,7 +60,7 @@ sed -i '$s/NOPASSWD: //' /etc/sudoers
 
 cat << END > /home/"$user"/.xinitrc
 setxkbmap -layout us,gr -option grp:win_space_toggle
-fswm st -f "Source Code Pro:pixelsize=60:style=bold"
+exec fswm st -f "Source Code Pro:pixelsize=60:style=bold"
 END
 
 cat << END > /home/"$user"/.gitconfig
