@@ -88,6 +88,7 @@ GitHub
 Pulseaudio
 1. pactl set-sink-volume 0 100%
 2. pactl set-sink-mute 0 0
+3. pactl set-source-mute 1 0
 END
 
 EOF
