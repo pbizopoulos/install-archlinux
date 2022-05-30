@@ -32,7 +32,7 @@ curl -L github.com/pbizopoulos/install-archlinux/raw/main/in-device.sh | sudo ba
 ... in qemu using device (PC).
 
 Requirements:
-- POSIX compliant shell (any of Bash, Dash, KornShell, Yash, Zsh)
+- POSIX compliant shell (ash, bash, dash, ksh, posh, yash or zsh)
 - Git (Any version)
 - Make (bmake or GNU Make)
 - Docker (Any version)
