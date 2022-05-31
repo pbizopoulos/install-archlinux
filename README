@@ -4,7 +4,7 @@ Install archlinux ...
 ... in device (PC) using external device (USB stick).
 
 Requirements:
-- POSIX compliant shell (any of Bash, Dash, KornShell, Yash, Zsh)
+- POSIX compliant shell (ash, bash, dash, ksh, posh, yash or zsh)
 - curl
 
 Preparation:
@@ -12,19 +12,24 @@ Preparation:
 ISO="$(curl -fs "https://mirror.pkgbuild.com/iso/latest/" | grep -Eo 'archlinux-[0-9]{4}\.[0-9]{2}\.[0-9]{2}-x86_64.iso' | head -n 1)" && curl -o "/tmp/${ISO}" "https://mirror.pkgbuild.com/iso/latest/${ISO}"
 dd bs=4M if="/tmp/${ISO}" of=/dev/sdx status=progress oflag=sync
 # boot target from USB stick
-curl -L github.com/pbizopoulos/install-archlinux/raw/main/in-device.sh | bash -s /dev/sda && reboot
+curl -LO github.com/pbizopoulos/install-archlinux/raw/main/in-device.sh
+# edit in-device.sh
+bash in-device.sh /dev/sda
+reboot
 # execute commands in post.txt
 
 
 ... in external device (USB stick) using device (PC).
 
 Requirements:
-- archlinux https://archlinux.org/
+- archlinux
 
 Preparation:
 # plug USB stick to host
 sudo pacman -S arch-install-scripts dosfstools reflector
-curl -L github.com/pbizopoulos/install-archlinux/raw/main/in-device.sh | sudo bash -s /dev/sdb
+curl -LO github.com/pbizopoulos/install-archlinux/raw/main/in-device.sh
+# edit in-device.sh
+sudo bash in-device.sh /dev/sdb
 # boot target from USB stick
 # execute commands in post.txt
 
