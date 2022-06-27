@@ -1,0 +1,18 @@
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  push:
+    paths:
+      - '.github/workflows/test.yml'
+      - 'Dockerfile'
+      - 'Makefile'
+      - 'in-device.sh'
+      - 'in-qemu.sh'
+jobs:
+  make:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - name: Test
+        run: make kvm_args=
